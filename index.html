@@ -1,23 +1,34 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
+        <title>Cat Clicker Ultra</title>
+        <meta name="description" content="A Cat Clicking Adventure!">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
-        <section class="cat-box"></section>
-        
-        <script src="js/clicker.js" async defer></script>
+        <ul id="cat-collection"></ul>
+        <div id="cat-box">
+            <h2 id="cat-name"></h2>
+            <div id="cat-counter"></div>
+            <img id="cat-img" src="" alt="">
+            <button id="admin" type="submit">Admin</button>
+        </div>
+
+        <form id="admin-form" method="GET">
+            <p>Name</p>
+            <input type="text" id="input-name" name="input-name" />
+            <p>Cat Image URL</p>
+            <input type="text" id="input-url" name="input-url" />
+            <p>Cat Clicks</p>
+            <input type="number" id="input-clicks" min="0" max="100" step="1" name="input-clicks" />
+            <input id="input-save" name="input-save" type="submit" value="Save" />
+            <input id="input-cancel" name="input-cancel" type="submit" value="Cancel" />
+        </form>
+
+        <script src="js/clicker.js"></script>
     </body>
 </html>

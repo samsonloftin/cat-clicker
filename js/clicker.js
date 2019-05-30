@@ -1,75 +1,182 @@
-let catBox = document.querySelector(".cat-box"),
-    catListDisplay = document.createElement("div"),
-    catListUl = document.createElement("ul"),
-    imageCounter = 0,
-    catArray = [],
-    catArrayImg = [];
+/*
+ *
+ * THE
+ * MODEL
+ * 
+*/
 
-function catArrayFunc(name, image) {
-    catArray.push(name);
-    catArrayImg.push(image);
+const catData = {
+    currentCat: null,
+    showForm: false,
+    cats: [
+        {
+            name : 'Moozie',
+            source : 'img/cat01.gif',
+            alt : 'Moozie the cat being super cute!',
+            catounter : 0
+        },
+        {
+            name : 'Zambie',
+            source : 'img/cat02.gif',
+            alt : 'Zambie look is a very cute cat!',
+            catounter : 0
+        },
+        {
+            name : 'Tony',
+            source : 'img/cat03.gif',
+            alt : 'Tony the cat looking fierce!',
+            catounter : 0
+        },
+        {
+            name : 'Leo',
+            source : 'img/cat04.gif',
+            alt : 'Leo the cat looking professional!',
+            catounter : 0
+        },
+        {
+            name : 'Mary',
+            source : 'img/cat05.gif',
+            alt : 'Cannot resist Mary and her cat charms',
+            catounter : 0
+        }
+    ]
 };
 
-function hideCats() {
-    catArray.forEach(cat => {
-        let findCat = document.getElementById(cat);
-        findCat.setAttribute("class","cat hide");
-    });
+/*
+ *
+ * THE
+ * OCTOPUS
+ * 
+*/
+
+const theCatWrangler = {
+
+    init() {
+        // Sets the first cat in cats as the currentCat
+        catData.currentCat = catData.cats[0];
+
+        //Starts catDisplay & CatList to start displaying
+        catList.init();
+        catDisplay.init();
+    },
+
+    // returns currentCat to getCurrentCat property
+    getCurrentCat() {
+        return catData.currentCat;
+    },
+
+    // returns cats list to getCats property
+    getCats() {
+        return catData.cats;
+    },
+
+    //set a new current cat
+    setCurrentCat(cat) {
+        catData.currentCat = cat;
+    },
+
+    // increases counter after click
+    increaseCatounter() {
+        catData.currentCat.catounter++;
+        catDisplay.render();
+    },
+
+    openForm() {
+
+    },
+
+    closeForm() {
+
+    },
+
+    saveForm() {
+
+    }
 };
 
-function catElements() {
+/*
+ *
+ * THE
+ * VIEW
+ * 
+*/
 
-    catArray.forEach(cat => {
-        let catListText = document.createElement("li"),
-            catDiv = document.createElement("div"),
-            catImg = document.createElement("img"),
-            catName = document.createElement("h3"),
-            catCounter = document.createElement("p"),
-            counter = 0;
+let catFormView = {
 
-        imageCounter += 1;
-        catImg.src = "img/cat0" + imageCounter + ".gif";
+    init() {
 
-        catListText.innerHTML = cat;
-        catListText.setAttribute("id", ("l" + cat));
-        catImg.setAttribute("class", "kittyImg");
-        catDiv.setAttribute("class", "cat hide");
-        catDiv.setAttribute("id", cat);
-        catName.setAttribute("class", "cat-title");
-        catCounter.setAttribute("class", "counter");
-        catCounter.innerHTML = counter;
-        catName.innerHTML = cat;
+    },
 
-        // Creating the cat list
-        catBox.appendChild(catListDisplay);
-        catListDisplay.appendChild(catListUl);
-        catListUl.appendChild(catListText);
-        catListText.appendChild(catDiv);
-        catDiv.appendChild(catName);
-        catDiv.appendChild(catImg);
-        catDiv.appendChild(catCounter);
+    render() {
+        
+    }
+};
 
-        catImg.addEventListener("click", () => {
-            counter += 1;
-            catCounter.innerHTML = counter;
-        }, false);
+let catDisplay = {
 
-        catListText.addEventListener("click", () => {
-            let gettingAttr = catListText.getAttribute("id");
-            
-            hideCats();
-            catArray.forEach(element => {
-                if (gettingAttr === ("l" + element)) {
-                    catDiv.setAttribute("class", "cat");
-                }
-            });
+    init() {
+        // DOM Elements
+        this.catBox = document.getElementById('cat-box');
+        this.catName = document.getElementById('cat-name');
+        this.catImg = document.getElementById('cat-img');
+        this.catCounter = document.getElementById('cat-counter');
+
+        // sets click to increase counter
+        this.catImg.addEventListener('click', () => {
+            theCatWrangler.increaseCatounter();
         });
-    });
-}
 
-catArrayFunc("sally", "img/cat.gif");
-catArrayFunc("markie", "img/cat02.gif");
-catArrayFunc("jake", "img/cat03.gif");
-catArrayFunc("mary", "img/cat04.gif");
-catArrayFunc("moozie", "img/cat05.gif");
-catElements();
+        // Updates view
+        this.render();
+    },
+
+    render() {
+        // retrieves info from the current cat
+        const currentCat = theCatWrangler.getCurrentCat();
+        this.catCounter.textContent = currentCat.catounter;
+        this.catName.textContent = currentCat.name;
+        this.catImg.src = currentCat.source;
+        this.catImg.alt = currentCat.alt;
+    }
+};
+
+let catList = {
+
+    init() {
+        // DOM Element
+        this.catCollect = document.getElementById('cat-collection');
+
+        // display the changes
+        this.render();
+    },
+
+    render() {
+        let catEntry;
+        const cats = theCatWrangler.getCats(); 
+
+        // empty the cat list
+        this.catCollect.innerHTML = '';
+
+        cats.forEach(cat => {
+
+            catEntry = document.createElement('li');
+            catEntry.textContent = cat.name;
+
+            catEntry.addEventListener('click', ((catCopy => () => {
+                    theCatWrangler.setCurrentCat(catCopy);
+                    catDisplay.render();
+            }))(cat));
+
+            // Adds Cat to List
+            this.catCollect.appendChild(catEntry);
+        });
+    }
+};
+
+/*
+ *
+ * START
+ * APP
+ * 
+*/
+theCatWrangler.init();
