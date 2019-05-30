@@ -2,30 +2,41 @@ html,
 body {
     margin: 0;
     padding: 0;
+    color: white;
     background-color: black;
 }
 
 
 .cat-box {
-    width:100%;
+    width: 100%;
     display: flex;
-    align-content: space-between;
-    margin: auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
 }
 
 .cat {
-    width: 30%;
+    display: flex;
+    border-radius: 25px;
+    text-align: center;
 }
 
 .cat-title,
 .counter {
-    font-size: 1em;
-    color: white;
-    padding: 10px;
-    text-align: center;
+    font-size: 1.5em;
+    letter-spacing: .4em;
 }
 
-.cat img {
-    width: 45%;
-    height: 45%;
+.kittyImg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 250px;
+}
+
+.hide {
+    display: none;
 }
