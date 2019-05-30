@@ -1,0 +1,31 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+
+.cat-box {
+    width:100%;
+    display: flex;
+    align-content: space-between;
+    margin: auto;
+}
+
+.cat {
+    width: 30%;
+}
+
+.cat-title,
+.counter {
+    font-size: 1em;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.cat img {
+    width: 45%;
+    height: 45%;
+}
