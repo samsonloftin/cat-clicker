@@ -10,23 +10,22 @@
     </head>
     <body>
 
+        <input id="admin" type="button" value="Admin" />
+
         <ul id="cat-collection"></ul>
         <div id="cat-box">
             <h2 id="cat-name"></h2>
             <div id="cat-counter"></div>
             <img id="cat-img" src="" alt="">
-            <button id="admin" type="submit">Admin</button>
         </div>
 
-        <form id="admin-form" method="GET">
-            <p>Name</p>
-            <input type="text" id="input-name" name="input-name" />
-            <p>Cat Image URL</p>
-            <input type="text" id="input-url" name="input-url" />
-            <p>Cat Clicks</p>
-            <input type="number" id="input-clicks" min="0" max="100" step="1" name="input-clicks" />
-            <input id="input-save" name="input-save" type="submit" value="Save" />
-            <input id="input-cancel" name="input-cancel" type="submit" value="Cancel" />
+        <form id="admin-form" class="hide">
+            <input type="text" id="admin-name" value="Cat Name" />
+            <input type="text" id="admin-url" value="Cat URL" />
+            <input type="text" id="admin-alt" value="Cat Image Alt Text" />
+            <input type="number" id="admin-clicks" min="0" max="100" step="1" value="0" />
+            <input type="button" id="admin-save" value="Save" />
+            <input type="button" id="admin-cancel" value="Cancel" />
         </form>
 
         <script src="js/clicker.js"></script>

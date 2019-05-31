@@ -81,17 +81,26 @@ const theCatWrangler = {
         catDisplay.render();
     },
 
-    openForm() {
-
+    // returns the value for showForm
+    retrieveForm() {
+        return catData.showForm;
     },
 
-    closeForm() {
-
+    // toggles the boolean of showForm
+    toggleForm() {
+        catData.showForm = !(catData.showForm);
+        catDisplay.render();
     },
 
-    saveForm() {
-
+    editCat(name, url, alt, clicks) {
+        catData.currentCat.name = name;
+        catData.currentCat.source = url;
+        catData.currentCat.alt = alt;
+        catData.currentCat.catounter = clicks;
+        catDisplay.render();
+        catList.render();
     }
+
 };
 
 /*
@@ -100,17 +109,6 @@ const theCatWrangler = {
  * VIEW
  * 
 */
-
-let catFormView = {
-
-    init() {
-
-    },
-
-    render() {
-        
-    }
-};
 
 let catDisplay = {
 
@@ -126,6 +124,32 @@ let catDisplay = {
             theCatWrangler.increaseCatounter();
         });
 
+        // DOM Admin Button Elements
+        this.adminButton = document.getElementById('admin');
+        this.adminForm = document.getElementById('admin-form');
+        this.adminCancel = document.getElementById('admin-cancel');
+
+        // toggles the Admin Button
+        this.adminButton.addEventListener('click', () => {
+            theCatWrangler.toggleForm();
+        });
+
+        // toggles the cancel button (does the same thing as the admin button)
+        this.adminCancel.addEventListener('click', () => {
+            theCatWrangler.toggleForm();
+        });
+
+        // DOM Admin Inputs
+        this.adminName = document.getElementById('admin-name');
+        this.adminUrl = document.getElementById('admin-url');
+        this.adminAlt = document.getElementById('admin-alt');
+        this.adminClick = document.getElementById('admin-clicks');
+        this.adminSave = document.getElementById('admin-save');
+
+        this.adminSave.addEventListener('click', () => {
+            theCatWrangler.editCat(this.adminName.value, this.adminUrl.value, this.adminAlt.value, this.adminClick.value);
+        });
+
         // Updates view
         this.render();
     },
@@ -137,6 +161,22 @@ let catDisplay = {
         this.catName.textContent = currentCat.name;
         this.catImg.src = currentCat.source;
         this.catImg.alt = currentCat.alt;
+
+        //Places currentCat info into the form
+        this.adminName.value = currentCat.name;
+        this.adminUrl.value = currentCat.source;
+        this.adminClick.value = currentCat.catounter;
+        this.adminAlt.value = currentCat.alt;
+
+        // retrieves the value of catData.showForm from the octopus
+        const catForm = theCatWrangler.retrieveForm();
+
+        // checks the boolean and shows or hides the form
+        if (catForm == false) {
+            this.adminForm.setAttribute('class', 'hide');
+        } else if (catForm == true) {
+            this.adminForm.setAttribute('class', 'show');
+        }
     }
 };
 
